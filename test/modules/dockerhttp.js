@@ -82,7 +82,7 @@ describe("DockerHttp",function(){
     dockerhttp.post("/containers/"+container.Id+"/stop",{},function(err){
         if(err) throw new Error(err)
 
-        dockerhttp.delete("/containers/"+container.Id+"?v=1",{},function(err){
+        dockerhttp.delete("/containers/"+container.Id+"?force=1",{},function(err){
             if(err) throw new Error(err)
 
             done();
