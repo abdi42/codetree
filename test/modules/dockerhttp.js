@@ -25,6 +25,7 @@ describe("DockerHttp",function(){
   it("should connect to docker daemon and return list of container",function(){
     dockerhttp.get('/containers/json',function(err,body){
       body.should.be.an.Array();
+      done()
     })
   })
 
@@ -47,6 +48,7 @@ describe("DockerHttp",function(){
     dockerhttp.post("/containers/create",containerOpts,function(err,body){
       container = body;
       body.Id.should.be.an.String();
+      done()
     })
   })
 
@@ -67,11 +69,5 @@ describe("DockerHttp",function(){
     })
   })
 
-  after(function(done){
-    exec("rm -r test/temp/program",function(err){
-      if(err) throw err;
-      done();
-    })
-  })
 
 })
