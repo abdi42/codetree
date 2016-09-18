@@ -1,5 +1,5 @@
 var should = require("should");
-var dockerhttp = require("../../lib/dockerhttp.js");
+var dockerhttp = require("../../src/lib/dockerhttp.js");
 var fs = require('fs');
 
 function containerExec(containerId,callback){
