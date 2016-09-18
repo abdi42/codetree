@@ -52,6 +52,13 @@ describe("DockerHttp",function(){
     })
   })
 
+  it("should start a docker container",function(){
+    dockerhttp.post("/containers/" + container.Id + "/start", {}, function(err, body) {
+        if (err) throw new Error(err)
+        done();
+    })
+  })
+
   it("should create a file called test.txt",function(){
     containerExec(container.Id,function(err){
       if(err){
@@ -66,6 +73,18 @@ describe("DockerHttp",function(){
         })
       }
 
+    })
+  })
+
+  it("should stop and remove container",function(){
+    dockerhttp.post("/containers/"+container.Id+"/stop",{},function(err){
+        if(err) throw new Error(err)
+
+        dockerhttp.delete("/containers/"+container.Id+"?v=1",{},function(err){
+            if(err) throw new Error(err)
+
+            done();
+        })
     })
   })
 
