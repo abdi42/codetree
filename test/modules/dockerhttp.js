@@ -1,6 +1,7 @@
 var should = require("should");
 var dockerhttp = require("../../src/lib/dockerhttp.js");
 var fs = require('fs');
+var container = {};
 
 function containerExec(containerId,callback){
     var execOpts = {
@@ -20,16 +21,8 @@ function containerExec(containerId,callback){
 }
 
 describe("DockerHttp",function(){
-  var container = {};
 
-  it("should connect to docker daemon and return list of container",function(){
-    dockerhttp.get('/containers/json',function(err,body){
-      body.should.be.an.Array();
-      done()
-    })
-  })
-
-  it("should create a container",function(){
+  before(function(done){
     var containerOpts = {
         AttachStdout: true,
         AttachStderr: true,
@@ -51,6 +44,14 @@ describe("DockerHttp",function(){
       done()
     })
   })
+
+  it("should connect to docker daemon and return list of container",function(){
+    dockerhttp.get('/containers/json',function(err,body){
+      body.should.be.an.Array();
+      done()
+    })
+  })
+
 
   it("should start a docker container",function(){
     console.log(container);
